@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="day_bg">#8ED6FF</color>
+    <color name="day_card">#B3FFFFFF</color>
+    <color name="night_bg">#1B2541</color>
+    <color name="night_card">#33FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+</resources>
