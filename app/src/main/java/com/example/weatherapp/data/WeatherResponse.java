@@ -18,6 +18,7 @@ public class WeatherResponse {
         public double temp_min;
         public double temp_max;
         public double feels_like;
+        public int humidity;
     }
 
     public class Weather {

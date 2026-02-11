@@ -34,6 +34,9 @@ android {
 }
 
 dependencies {
+    val room_version = "2.6.1"
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
     implementation(libs.appcompat)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

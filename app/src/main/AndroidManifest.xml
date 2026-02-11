@@ -27,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.CityListActivity" />
+        <activity android:name=".ui.AddCityActivity" />
 
     </application>
 
