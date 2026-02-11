@@ -30,16 +30,17 @@
                 android:textColor="#FFFFFF"
                 android:textSize="26sp"
                 android:textStyle="bold" />
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/etCityName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"
-                android:hint="Название города (English)"
+                android:hint="Название города (например, London)"
                 android:padding="15dp"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#CCFFFFFF"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:completionThreshold="1" />
             <EditText
                 android:id="@+id/etNote"
                 android:layout_width="match_parent"
