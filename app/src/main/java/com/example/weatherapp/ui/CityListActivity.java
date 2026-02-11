@@ -33,7 +33,7 @@ public class CityListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadCities(); // Обновляем список при возврате
+        loadCities();
     }
 
     private void loadCities() {
@@ -42,7 +42,6 @@ public class CityListActivity extends AppCompatActivity {
         rv.setAdapter(new CityAdapter(cities, new CityAdapter.OnCityClickListener() {
             @Override
             public void onClick(CityEntity city) {
-                // ПЕРЕХОД НА ГЛАВНЫЙ ЭКРАН С ВЫБРАННЫМ ГОРОДОМ
                 Intent intent = new Intent(CityListActivity.this, HomeActivity.class);
                 intent.putExtra("CITY_NAME", city.cityName);
                 startActivity(intent);
@@ -51,7 +50,7 @@ public class CityListActivity extends AppCompatActivity {
             @Override
             public void onDelete(CityEntity city) {
                 db.cityDao().deleteCity(city);
-                loadCities(); // Перезагрузить список
+                loadCities();
             }
         }));
     }

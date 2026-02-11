@@ -38,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        // 1. Инициализация UI
         imgWeatherMain = findViewById(R.id.imgWeatherMain);
         tvCity = findViewById(R.id.tvCity);
         tvMainTemp = findViewById(R.id.tvMainTemp);
@@ -89,8 +87,6 @@ public class HomeActivity extends AppCompatActivity {
         String iconCode = current.weather.get(0).icon;
         setWeatherTheme(iconCode.contains("n"));
         imgWeatherMain.setImageResource(getWeatherIcon(iconCode));
-
-        // Настройка списков
         setupHourlyList(data.list);
         setupDailyList(data.list);
         setupInfoPager(current, data.city);
