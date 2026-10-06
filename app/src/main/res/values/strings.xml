@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Weatherapp</string>
+    <string name="weather_loading">Загрузка прогноза…</string>
+    <string name="weather_key_missing">Укажите WEATHER_API_KEY для сборки приложения</string>
+    <string name="weather_key_invalid">Ошибка ключа API. Проверьте WEATHER_API_KEY</string>
+    <string name="weather_city_not_found">Город не найден. Проверьте название</string>
+    <string name="weather_network_error">Нет связи с сервисом погоды. Проверьте интернет и повторите попытку</string>
+    <string name="weather_api_error">Сервис погоды недоступен. Повторите попытку позже</string>
+    <string name="weather_rate_limit">Лимит запросов исчерпан. Повторите попытку позже</string>
+    <string name="weather_bad_response">Не удалось прочитать прогноз. Повторите попытку позже</string>
 </resources>

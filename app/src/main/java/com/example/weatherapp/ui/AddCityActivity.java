@@ -37,10 +37,24 @@ public class AddCityActivity extends AppCompatActivity {
             String note = etNote.getText().toString().trim();
 
             if (!name.isEmpty()) {
-                AppDatabase db = AppDatabase.getInstance(this);
-                db.cityDao().insertCity(new CityEntity(name, note));
-                Toast.makeText(this, "Город сохранен!", Toast.LENGTH_SHORT).show();
-                finish();
+                btnSave.setEnabled(false);
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                AppDatabase.databaseExecutor.execute(() -> {
+                    try {
+                        db.cityDao().insertCity(new CityEntity(name, note));
+                        runOnUiThread(() -> {
+                            if (isFinishing() || isDestroyed()) return;
+                            Toast.makeText(this, "Город сохранен!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        });
+                    } catch (RuntimeException e) {
+                        runOnUiThread(() -> {
+                            if (isFinishing() || isDestroyed()) return;
+                            btnSave.setEnabled(true);
+                            Toast.makeText(this, "Не удалось сохранить город", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
             } else {
                 Toast.makeText(this, "Введите название города", Toast.LENGTH_SHORT).show();
             }

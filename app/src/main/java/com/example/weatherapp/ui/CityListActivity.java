@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.Toast;
 import com.example.weatherapp.R;
 import com.example.weatherapp.data.AppDatabase;
 import com.example.weatherapp.data.CityEntity;
@@ -27,7 +28,6 @@ public class CityListActivity extends AppCompatActivity {
 
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddCityActivity.class)));
 
-        loadCities();
     }
 
     @Override
@@ -37,7 +37,22 @@ public class CityListActivity extends AppCompatActivity {
     }
 
     private void loadCities() {
-        List<CityEntity> cities = db.cityDao().getAllCities();
+        AppDatabase.databaseExecutor.execute(() -> {
+            try {
+                List<CityEntity> cities = db.cityDao().getAllCities();
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) showCities(cities);
+                });
+            } catch (RuntimeException e) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed())
+                        Toast.makeText(this, "Не удалось загрузить города", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
+    private void showCities(List<CityEntity> cities) {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new CityAdapter(cities, new CityAdapter.OnCityClickListener() {
             @Override
@@ -49,8 +64,19 @@ public class CityListActivity extends AppCompatActivity {
 
             @Override
             public void onDelete(CityEntity city) {
-                db.cityDao().deleteCity(city);
-                loadCities();
+                AppDatabase.databaseExecutor.execute(() -> {
+                    try {
+                        db.cityDao().deleteCity(city);
+                        runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed()) loadCities();
+                        });
+                    } catch (RuntimeException e) {
+                        runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed())
+                                Toast.makeText(CityListActivity.this, "Не удалось удалить город", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
             }
         }));
     }

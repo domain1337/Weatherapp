@@ -2,6 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+val weatherApiKey = providers.gradleProperty("WEATHER_API_KEY")
+    .orElse(providers.environmentVariable("WEATHER_API_KEY"))
+    .orElse("")
+    .get()
+
 android {
     namespace = "com.example.weatherapp"
     compileSdk {
@@ -16,6 +21,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "WEATHER_API_KEY", "\"${weatherApiKey.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
